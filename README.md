@@ -117,7 +117,7 @@ Tests
 Run the following commands
 
 ```
-composer create-project --prefer-source cetver/languages-dispatcher
+composer create-project --prefer-source cetver/yii2-languages-dispatcher
 cd yii2-languages-dispatcher
 vendor/bin/codecept run unit
 ```
