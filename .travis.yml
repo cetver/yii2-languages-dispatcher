@@ -12,6 +12,8 @@ php:
     - '7.1'
 
 install:
+    - composer config --global github-oauth.github.com b7244dc99194b22416d5ce46d511ce04049b23de
+    - composer global require "fxp/composer-asset-plugin:~1.3.1"
     - composer update --prefer-dist --no-interaction
 
 script:
