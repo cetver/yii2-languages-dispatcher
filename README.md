@@ -92,7 +92,7 @@ return [
                 [
                     // Detects a language from the "language" property.
                     'class' => 'cetver\LanguagesDispatcher\handlers\DefaultLanguageHandler',
-                    'language' => 'en' // optional, the default language.
+                    'language' => 'en' // the default language.
                     /*
                     or
                     'language' => function () {
