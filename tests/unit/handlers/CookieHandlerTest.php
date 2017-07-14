@@ -48,7 +48,7 @@ class CookieHandlerTest extends AbstractUnitTest
             'class' => 'stdClass',
         ];
         $this->tester->expectException(
-            InvalidConfigException::class,
+            get_class(new InvalidConfigException()),
             function () use ($cookieConfig) {
                 $this->mockWebApplication();
                 new CookieHandler([
