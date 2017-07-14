@@ -54,7 +54,7 @@ class UserHandler extends AbstractHandler
                 throw new InvalidConfigException(sprintf(
                     'The "%s" property does not exists in the "%s" class',
                     $this->languageAttribute,
-                    $this->identity::className()
+                    get_class($this->identity)
                 ));
             }
             Yii::$app->on(Component::EVENT_AFTER_SETTING_LANGUAGE, [$this, 'saveAttribute']);
