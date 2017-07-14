@@ -117,7 +117,7 @@ class UserHandlerTest extends AbstractUnitTest
         $this->initUsersTable(Yii::$app);
         Yii::$app->getUser()->login(UserActiveRecord::findByUsername('admin'));
         new UserHandler();
-        Yii::$app->trigger(Yii::$app::EVENT_BEFORE_ACTION);
+        Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
         $identity = Yii::$app->getUser()->getIdentity();
         $this->tester->assertSame(Yii::$app->language, $identity->language_code);
     }

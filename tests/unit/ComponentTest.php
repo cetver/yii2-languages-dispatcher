@@ -7,6 +7,7 @@ use cetver\LanguagesDispatcher\handlers\AbstractHandler;
 use cetver\LanguagesDispatcher\handlers\CookieHandler;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\web\Application;
 
 class ComponentTest extends AbstractUnitTest
 {
@@ -90,7 +91,7 @@ class ComponentTest extends AbstractUnitTest
         }
 
         $this->mockWebApplication();
-        $this->tester->assertTrue(Yii::$app->hasEventHandlers(Yii::$app::EVENT_BEFORE_ACTION));
+        $this->tester->assertTrue(Yii::$app->hasEventHandlers(Application::EVENT_BEFORE_ACTION));
     }
 
     public function testSetLanguage()
@@ -108,7 +109,7 @@ class ComponentTest extends AbstractUnitTest
                 ],
             ],
         ]);
-        Yii::$app->trigger(Yii::$app::EVENT_BEFORE_ACTION);
+        Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
         $this->tester->assertSame('ru', Yii::$app->language);
 
         $this->mockWebApplication([
@@ -126,7 +127,7 @@ class ComponentTest extends AbstractUnitTest
             ],
         ]);
         Yii::$app->getRequest()->setQueryParams(['language' => 'en']);
-        Yii::$app->trigger(Yii::$app::EVENT_BEFORE_ACTION);
+        Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
         $this->tester->assertSame('en', Yii::$app->language);
 
         $this->mockWebApplication([
@@ -144,7 +145,7 @@ class ComponentTest extends AbstractUnitTest
             ],
         ]);
         Yii::$app->getRequest()->setQueryParams(['language' => 'unknown']);
-        Yii::$app->trigger(Yii::$app::EVENT_BEFORE_ACTION);
+        Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
         $this->tester->assertSame('ru', Yii::$app->language);
 
         $this->mockWebApplication([

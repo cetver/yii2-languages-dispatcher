@@ -6,6 +6,7 @@ use cetver\LanguagesDispatcher\handlers\CookieHandler;
 use cetver\LanguagesDispatcher\tests\AbstractUnitTest;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\web\Application;
 use yii\web\Request;
 use yii\web\Response;
 
@@ -115,7 +116,7 @@ class CookieHandlerTest extends AbstractUnitTest
                 ],
             ],
         ]);
-        Yii::$app->trigger(Yii::$app::EVENT_BEFORE_ACTION);
+        Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
         $this->tester->assertSame(Yii::$app->language, Yii::$app->getResponse()->getCookies()->get('language')->value);
     }
 }
