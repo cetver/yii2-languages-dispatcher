@@ -121,3 +121,10 @@ composer create-project --prefer-source cetver/yii2-languages-dispatcher
 cd yii2-languages-dispatcher
 vendor/bin/codecept run unit
 ```
+
+For I18N support, take a look at
+-------------------------------------
+- [https://github.com/cetver/yii2-languages-dispatcher](https://github.com/cetver/yii2-languages-dispatcher) - Sets the web-application language
+- [https://github.com/cetver/yii2-language-url-manager](https://github.com/cetver/yii2-language-url-manager) - Parses and creates URLs containing languages
+- [https://github.com/cetver/yii2-language-selector](https://github.com/cetver/yii2-language-selector) - Provides the configuration for the language selector
+- [https://github.com/creocoder/yii2-translateable](https://github.com/creocoder/yii2-translateable) - The translatable behavior (Active Record)
