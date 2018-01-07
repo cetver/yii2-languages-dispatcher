@@ -2,14 +2,14 @@
 
 namespace cetver\LanguagesDispatcher\handlers;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
 /**
  * Class AbstractHandler is a simple handler implementation that other handlers can inherit from.
  *
  * @package cetver\LanguagesDispatcher\handlers
  */
-abstract class AbstractHandler extends Object
+abstract class AbstractHandler extends BaseObject
 {
     /**
      * Returns the list of languages detected by the handler.
