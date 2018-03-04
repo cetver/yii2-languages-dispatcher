@@ -30,6 +30,9 @@ abstract class AbstractUnitTest extends Unit
                     'ld' => [
                         'class' => 'cetver\LanguagesDispatcher\Component',
                     ],
+                    'request' => [
+                        'cookieValidationKey' => 'cookieValidationKey'
+                    ]
                 ]
             ],
             $config
