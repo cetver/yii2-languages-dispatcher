@@ -48,6 +48,15 @@ return [
             // Order is important
             'handlers' => [
                 [
+                    // Detects a language based on host name
+                    'class' => 'cetver\LanguagesDispatcher\handlers\HostNameHandler',
+                    'request' => 'request', // optional, the Request component ID.
+                    'hostMap' => [
+                        'ru.example.com' => 'ru',
+                        'uk.example.com' => 'uk'
+                    ]
+                ],
+                [
                     // Detects a language from the query parameter.
                     'class' => 'cetver\LanguagesDispatcher\handlers\QueryParamHandler',
                     'request' => 'request', // optional, the Request component ID.
