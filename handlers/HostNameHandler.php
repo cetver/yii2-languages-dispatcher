@@ -46,7 +46,7 @@ class HostNameHandler extends AbstractHandler
             throw new InvalidConfigException(sprintf(
                 'The component with the specified ID "%s" must be an instance of "%s"',
                 $this->request,
-                Request::class
+                Request::className()
             ));
         }
 

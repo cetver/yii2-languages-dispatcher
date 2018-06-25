@@ -17,14 +17,16 @@ class HostNameHandlerTest extends AbstractUnitTest
     public function testInit()
     {
         $request = 'invalid-request';
-        $this->tester->expectException(InvalidConfigException::class, function () use ($request) {
+        $invalidConfigExceptionClassName = ((new \ReflectionClass(new InvalidConfigException()))->getName());
+
+        $this->tester->expectException($invalidConfigExceptionClassName, function () use ($request) {
             $this->mockWebApplication();
             new HostNameHandler([
                 'request' => $request,
             ]);
         });
 
-        $this->tester->expectException(InvalidConfigException::class, function () {
+        $this->tester->expectException($invalidConfigExceptionClassName, function () {
             $this->mockWebApplication();
             new HostNameHandler([
                 'hostMap' => 'whatever'
@@ -32,7 +34,7 @@ class HostNameHandlerTest extends AbstractUnitTest
         });
 
         $handler = new HostNameHandler();
-        $this->tester->assertInstanceOf(Request::class, $handler->request);
+        $this->tester->assertInstanceOf(Request::className(), $handler->request);
     }
 
     public function testGetLanguages()
