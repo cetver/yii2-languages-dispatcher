@@ -8,13 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Request;
 
 /**
- * Class HostNameHandler
- *
- * @package cetver\LanguagesDispatcher\handlers
- *
- * @property array          $hostMap
- * @property array          $_languages
- * @property Request|string $request
+ * Class HostNameHandler handles languages based on the hostname of the request.
  */
 class HostNameHandler extends AbstractHandler
 {
@@ -23,16 +17,9 @@ class HostNameHandler extends AbstractHandler
      */
     public $request = 'request';
 
-    /** @var array
-     *
-     * key represents the host name and the value represents the language code
+    /** @var array|callable An array that maps hostnames to languages or a callable function that returns it.
      */
     public $hostMap = [];
-
-    /**
-     * @var array
-     */
-    private $_languages = [];
 
     /**
      * @inheritdoc
@@ -46,13 +33,21 @@ class HostNameHandler extends AbstractHandler
             throw new InvalidConfigException(sprintf(
                 'The component with the specified ID "%s" must be an instance of "%s"',
                 $this->request,
-                Request::className()
+                get_class(new Request())
             ));
         }
 
         $this->request = $request;
 
-        if (!is_array($this->hostMap)) throw new InvalidConfigException("hostMap must be an array");
+        if (is_callable($this->hostMap)) {
+            $this->hostMap = call_user_func($this->hostMap);
+        }
+
+        if (!is_array($this->hostMap)) {
+            throw new InvalidConfigException(
+                'The "hostMap" property must be an array or callable function that returns an array'
+            );
+        }
     }
 
     /**
@@ -60,15 +55,8 @@ class HostNameHandler extends AbstractHandler
      */
     public function getLanguages()
     {
-        if (empty($this->_languages)) {
-            try {
-                // other handlers will populate this
-                $this->_languages[] = $this->hostMap[$this->request->hostName];
-            } catch (\Exception $exception) {
-                Yii::error($exception->getMessage());
-            }
-        }
-
-        return ArrayHelper::merge(parent::getLanguages(), $this->_languages);
+        return (isset($this->hostMap[$this->request->hostName]))
+            ? [$this->hostMap[$this->request->hostName]]
+            : [];
     }
 }
