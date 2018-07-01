@@ -2,10 +2,10 @@
 
 namespace cetver\LanguagesDispatcher\tests\_data\models;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 use yii\web\IdentityInterface;
 
-class UserObject extends Object implements IdentityInterface
+class UserObject extends BaseObject implements IdentityInterface
 {
     public $id;
     public $username;
