@@ -16,24 +16,32 @@ class HostNameHandlerTest extends AbstractUnitTest
 {
     public function testInit()
     {
-        $request                         = 'invalid-request';
-        $invalidConfigExceptionClassName = get_class(new InvalidConfigException());
+        $request = 'invalid-request';
+        $this->tester->expectException(
+            new InvalidConfigException(sprintf(
+                'The component with the specified ID "%s" must be an instance of "%s"',
+                $request,
+                Request::className()
+            )),
+            function () use ($request) {
+                $this->mockWebApplication();
+                new HostNameHandler([
+                    'request' => $request,
+                ]);
+            }
+        );
 
-        $this->tester->expectException($invalidConfigExceptionClassName, function () use ($request) {
+        $hostMapConfigException = new InvalidConfigException(
+            'The "hostMap" property must be an array or callable function that returns an array'
+        );
+        $this->tester->expectException($hostMapConfigException, function () {
             $this->mockWebApplication();
             new HostNameHandler([
-                'request' => $request,
+                'hostMap' => 'non-array',
             ]);
         });
 
-        $this->tester->expectException($invalidConfigExceptionClassName, function () {
-            $this->mockWebApplication();
-            new HostNameHandler([
-                'hostMap' => 'non-array'
-            ]);
-        });
-
-        $this->tester->expectException($invalidConfigExceptionClassName, function () {
+        $this->tester->expectException($hostMapConfigException, function () {
             $this->mockWebApplication();
             new HostNameHandler([
                 'hostMap' => function () {
@@ -50,9 +58,7 @@ class HostNameHandlerTest extends AbstractUnitTest
             }
         ]);
         $this->tester->assertArrayHasKey('ru.example.com', $handler->hostMap);
-
-        $handler = new HostNameHandler();
-        $this->tester->assertInstanceOf(get_class(new Request()), $handler->request);
+        $this->tester->assertInstanceOf(Request::className(), $handler->request);
     }
 
     public function testGetLanguages()

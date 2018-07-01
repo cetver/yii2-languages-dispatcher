@@ -50,11 +50,10 @@ return [
                 [
                     // Detects a language based on host name
                     'class' => 'cetver\LanguagesDispatcher\handlers\HostNameHandler',
-                    'request' => 'request', // optional, the Request component ID.
-                    // hostMap can be either an array or a callable that returns an array
-                    'hostMap' => [
-                        'ru.example.com' => 'ru',
-                        'uk.example.com' => 'uk'
+                    'request' => 'request', // optional, the Request component ID.                    
+                    'hostMap' => [ // An array that maps hostnames to languages or a callable function that returns it.
+                        'en.example.com' => 'en',
+                        'ru.example.com' => 'ru'
                     ]
                 ],
                 [

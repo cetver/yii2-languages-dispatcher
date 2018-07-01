@@ -4,7 +4,6 @@ namespace cetver\LanguagesDispatcher\handlers;
 
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\helpers\ArrayHelper;
 use yii\web\Request;
 
 /**
@@ -19,7 +18,7 @@ class HostNameHandler extends AbstractHandler
 
     /** @var array|callable An array that maps hostnames to languages or a callable function that returns it.
      */
-    public $hostMap = [];
+    public $hostMap;
 
     /**
      * @inheritdoc
@@ -33,7 +32,7 @@ class HostNameHandler extends AbstractHandler
             throw new InvalidConfigException(sprintf(
                 'The component with the specified ID "%s" must be an instance of "%s"',
                 $this->request,
-                get_class(new Request())
+                Request::className()
             ));
         }
 
