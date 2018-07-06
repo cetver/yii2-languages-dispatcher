@@ -59,7 +59,7 @@ class Component extends \yii\base\Component implements BootstrapInterface
                     ));
                 }
             }
-            $app->on($app::EVENT_BEFORE_ACTION, [$this, 'setLanguage'], $app);
+            $app->on($app::EVENT_BEFORE_ACTION, [$this, 'setLanguage'], $app, false);
         }
     }
 
