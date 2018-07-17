@@ -30,6 +30,13 @@ class Component extends \yii\base\Component implements BootstrapInterface
      */
     public $handlers = [];
 
+	/**
+	 * @var bool append the language handler to the existing handler list or push at the beginning
+	 *           useful if you rely on having language available before reaching RBAC or other logic that involves beforeAction
+	 * @link https://www.yiiframework.com/doc/guide/2.0/en/concept-events#event-handler-order
+	 */
+    public $appendSetLanguageHandler = true;
+
     /**
      * Bootstrap method to be called during application bootstrap stage.
      *
@@ -48,6 +55,12 @@ class Component extends \yii\base\Component implements BootstrapInterface
                     'The "languages" property must be an array or callable function that returns an array'
                 );
             }
+
+            if (!is_bool($this->appendSetLanguageHandler)) {
+            	throw new InvalidConfigException(
+            		'The "appendSetLanguageHandler" property must be a boolean'
+	            );
+            }
             foreach ($this->handlers as &$handler) {
                 if (is_object($handler) === false) {
                     $handler = Yii::createObject($handler);
@@ -59,7 +72,7 @@ class Component extends \yii\base\Component implements BootstrapInterface
                     ));
                 }
             }
-            $app->on($app::EVENT_BEFORE_ACTION, [$this, 'setLanguage'], $app, false);
+            $app->on($app::EVENT_BEFORE_ACTION, [$this, 'setLanguage'], $app, $this->appendSetLanguageHandler);
         }
     }
 
