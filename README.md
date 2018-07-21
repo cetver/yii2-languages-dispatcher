@@ -39,6 +39,8 @@ return [
         'languagesDispatcher' => [
             'class' => 'cetver\LanguagesDispatcher\Component',
             'languages' => ['en', 'ru'],
+            // useful if you want to push the language handler at the beginning of beforeAction event handlers list
+            'appendSetLanguageHandler' => false, // defaults to true
             /*
             or
             'languages' => function () {
