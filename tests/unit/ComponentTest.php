@@ -101,7 +101,7 @@ class ComponentTest extends AbstractUnitTest
 			    $this->mockWebApplication([
 				    'components' => [
 					    'ld' => [
-						    'languages'                => $this->languages,
+						    'languages' => $this->languages,
 						    'appendSetLanguageHandler' => 'non-sense'
 					    ],
 				    ],
@@ -175,17 +175,17 @@ class ComponentTest extends AbstractUnitTest
         ]);
         $this->tester->assertTrue(Yii::$app->hasEventHandlers(Component::EVENT_AFTER_SETTING_LANGUAGE));
 
-	    $this->mockWebApplication([
-		    'components' => [
-			    'ld' => [
-				    'languages'                => $this->languages,
-				    'appendSetLanguageHandler' => false,
-				    'handlers'                 => [
-					    'cetver\LanguagesDispatcher\handlers\SessionHandler',
-				    ]
-			    ],
-		    ],
-	    ]);
+        $this->mockWebApplication([
+            'components' => [
+                'ld' => [
+                    'languages' => $this->languages,
+                    'appendSetLanguageHandler' => false,
+                    'handlers' => [
+                        'cetver\LanguagesDispatcher\handlers\SessionHandler',
+                    ],
+                ],
+            ],
+        ]);
 	    Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
 	    $this->tester->assertTrue(Yii::$app->hasEventHandlers(Component::EVENT_AFTER_SETTING_LANGUAGE));
     }

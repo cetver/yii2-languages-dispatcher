@@ -29,10 +29,9 @@ class Component extends \yii\base\Component implements BootstrapInterface
      * instance or the configuration for creating the handler instance.
      */
     public $handlers = [];
-
 	/**
-	 * @var bool append the language handler to the existing handler list or push at the beginning
-	 *           useful if you rely on having language available before reaching RBAC or other logic that involves beforeAction
+	 * @var bool append the language handler to the existing handler list or push at the beginning.
+	 * Useful if you rely on having language available before reaching RBAC or other logic that involves beforeAction.
 	 * @link https://www.yiiframework.com/doc/guide/2.0/en/concept-events#event-handler-order
 	 */
     public $appendSetLanguageHandler = true;
