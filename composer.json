@@ -37,17 +37,20 @@
     "codeception/specify": "~0.4.3",
     "satooshi/php-coveralls": "^1.0"
   },
-  "config": {
-    "fxp-asset": {
-      "installer-paths": {
-        "npm-asset-library": "vendor/npm",
-        "bower-asset-library": "vendor/bower"
-      }
-    }
-  },
   "autoload": {
     "psr-4": {
       "cetver\\LanguagesDispatcher\\": ""
     }
-  }
+  },
+  "config": {
+    "fxp-asset": {
+      "enabled": false
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
 }
