@@ -38,7 +38,7 @@ class AcceptLanguageHeaderHandlerTest extends AbstractUnitTest
         $this->tester->assertSame([], $handler->getLanguages());
 
         $this->mockWebApplication();
-        $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ru,en-GB;q=0.8,en-US;q=0.6,en;q=0.4';
+        \Yii::$app->getRequest()->getHeaders()->add('Accept-Language', 'ru,en-GB;q=0.8,en-US;q=0.6,en;q=0.4');
         $handler = new AcceptLanguageHeaderHandler();
         $this->tester->assertSame(['ru', 'en-GB', 'en-US', 'en'], $handler->getLanguages());
     }

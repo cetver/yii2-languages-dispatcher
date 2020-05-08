@@ -89,7 +89,7 @@ class Component extends \yii\base\Component implements BootstrapInterface
          */
         $app = $event->data;
         foreach ($this->handlers as $handler) {
-            $intersection = array_intersect($this->languages, $handler->getLanguages());
+            $intersection = array_intersect($handler->getLanguages(), $this->languages);
             if (!empty($intersection)) {
                 Yii::$app->language = current($intersection);
                 break;

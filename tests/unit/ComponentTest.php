@@ -93,21 +93,21 @@ class ComponentTest extends AbstractUnitTest
         $this->mockWebApplication();
         $this->tester->assertTrue(Yii::$app->hasEventHandlers(Application::EVENT_BEFORE_ACTION));
 
-	    $this->tester->expectException(
-		    new InvalidConfigException(
-			    'The "appendSetLanguageHandler" property must be a boolean'
-		    ),
-		    function () {
-			    $this->mockWebApplication([
-				    'components' => [
-					    'ld' => [
-						    'languages' => $this->languages,
-						    'appendSetLanguageHandler' => 'non-sense'
-					    ],
-				    ],
-			    ]);
-		    }
-	    );
+        $this->tester->expectException(
+            new InvalidConfigException(
+                'The "appendSetLanguageHandler" property must be a boolean'
+            ),
+            function () {
+                $this->mockWebApplication([
+                    'components' => [
+                        'ld' => [
+                            'languages' => $this->languages,
+                            'appendSetLanguageHandler' => 'non-sense'
+                        ],
+                    ],
+                ]);
+            }
+        );
     }
 
     public function testSetLanguage()
@@ -186,7 +186,23 @@ class ComponentTest extends AbstractUnitTest
                 ],
             ],
         ]);
-	    Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
-	    $this->tester->assertTrue(Yii::$app->hasEventHandlers(Component::EVENT_AFTER_SETTING_LANGUAGE));
+        Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
+        $this->tester->assertTrue(Yii::$app->hasEventHandlers(Component::EVENT_AFTER_SETTING_LANGUAGE));
+
+        $this->mockWebApplication(
+            [
+                'components' => [
+                    'ld' => [
+                        'languages' => $this->languages,
+                        'handlers' => [
+                            'cetver\LanguagesDispatcher\handlers\AcceptLanguageHeaderHandler',
+                        ],
+                    ],
+                ],
+            ]
+        );
+        Yii::$app->getRequest()->getHeaders()->add('Accept-Language', 'pl,ru,en,de');
+        Yii::$app->trigger(Application::EVENT_BEFORE_ACTION);
+        $this->tester->assertSame('ru', Yii::$app->language);
     }
 }
